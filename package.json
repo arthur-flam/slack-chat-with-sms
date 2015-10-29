@@ -1,0 +1,11 @@
+{
+  "name": "chat-sms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Arthur Flam",
+  "license": "UNLICENSED"
+}
