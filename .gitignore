@@ -1,8 +1,7 @@
 logs.json
+config.js
 app.log
 npm-debug.log
-pizza-backend/npm-debug.log
-certificates/
 
 # Created by https://www.gitignore.io
 node_modules/

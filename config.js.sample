@@ -1,0 +1,27 @@
+// Example config file
+
+var TEAM_1={"name":"team1",  // Name of the Slack team (name.slack.com)
+	       "phone":"33644639981",       // Twillio sms-enabled phone number
+	       "webhook_url":"https://hooks.slack.com/services/", // Do not change
+	       "webhook_key":"FFFFFFFFF/FFFFFFFFF/FFFFFFFFFFFFF", //
+	       "command_token":"", // // From Slack Command setup. Not verification is done at the moment.
+	       "plateform_token":"xoxp-ffffff-ffffff-ffffff-fffffff" // Slack API token given
+	      }
+
+module.exports = {
+    // nexmo credentials
+    NEXMO_APP_ID: 'fffffff',
+    NEXMO_APP_SECRET: 'ffffff',
+    
+    // team config
+    // - this part could be done automatically
+    // - if you want to setup more than one team just add them in the dictionnaries
+    TEAM_FROM_NUMBER: {"336xxxxxxxxx":TEAM_1}
+    TEAM_FROM_NAME: {"team1":TEAM_1}
+
+    // network config
+    PROTOCOL : "http://",
+    HOSTNAME : "YOUR_URL_OR_IP",
+    PORT: 80,           // different if you proxy the requests with, say, nginx
+    PORT_INTERNAL: 8006 // 
+}

@@ -1,12 +1,20 @@
 {
-  "name": "chat-sms",
+  "name": "slack-chat-with-sms",
   "version": "1.0.0",
-  "description": "",
+  "description": "Receive SMS from Slack and start SMS chats with phone users",
+  "keywords": ['slack', 'sms', 'chat'],
+  "homepage": 'github.com/arthur-flam/slack-chat-with-sms',
+  "bugs": { "url" : "https://github.com/arthur-flam/slack-chat-with-sms/issues",
+	    "email" : "arthur@fl.am"
+	  },
+  "license": "MIT",
+  "author": "Arthur Flam <arthur@fl.am>",  
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "start": "node app.js"
   },
   "author": "Arthur Flam",
+  "contributors" : [],
   "license": "UNLICENSED",
   "dependencies": {
     "body-parser": "^1.14.1",

@@ -1,12 +1,10 @@
 "use strict";
-var config = require(process.env.PWD+'/config.js');
-
 var morgan = require('morgan') // http logger
-var logger = require("./logger.js");
 var request = require('superagent');
-
 var nexmo = require('easynexmo');
 nexmo.initialize(config.NEXMO_APP_ID,config.NEXMO_APP_SECRET,'https',false);
+var config = require('./config.js');
+var logger = require("./logger.js");
 
 var express     =   require('express');
 var app         =   express();
@@ -31,7 +29,7 @@ router.use(function(req, res, next) {
 
 
 router.get('/', function(req, res){
-    res.json({ message: 'Welcome to text-my-SAV! You must be fun, contact us for jobs @ArthurFlam' });
+    res.json({ message: 'Welcome to the API' });
 });
 
 
@@ -48,7 +46,6 @@ function create_channel(channel_name, team, callback){
 	    callback(err, result);
         });
 }
-
 
 function invite_channel(channel_name, user, team, callback){
     var url = "https://slack.com/api/channels.invite";
@@ -67,22 +64,18 @@ function invite_channel(channel_name, user, team, callback){
 }
 
 
-
-// enable per team here : https://github.com/mattermost/platform/blob/master/doc/integrations/webhooks/Outgoing-Webhooks.md
 router.post('/hook', 
 function(req, res){
     var team = config.TEAM_FROM_NAME[req.body.team_domain || req.query.team_domain];
     logger.debug("hook received for team"+team.name);
-    if(req.body.token!==team.webhook_outbound_token){
-	//res.send("invalid token");
+    if(req.body.token!==team.command_token){
+	//res.send("invalid token"); // enable check ?
 	//return;
     }
     var payload={"text": req.query.text || req.body.text,
                  "channel":'#' + (req.query.channel_name || req.body.channel_name),
                  "username":req.query.user_name || req.body.user_name,
                 }
-    console.log(req.body);
-    console.log(payload);
     var url = team.webhook_url + team.webhook_key;
     request
         .post(url).send(payload)
@@ -98,7 +91,6 @@ function(req, res){
 			  null,
 			  function(error, message){
 			      logger.debug("from nexmo:");
-			      console.log(message);
 			      if(error || message.messages[0].status !== '0' ){
 				  res.send('❌');
 			      } else {
@@ -107,10 +99,6 @@ function(req, res){
 			  }
 )
 });
-
-
-
-
 
 router.get('/sms/in', function(req, res){
     res.send("OK");
