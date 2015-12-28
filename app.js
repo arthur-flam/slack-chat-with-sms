@@ -3,6 +3,7 @@ var config = require(process.env.PWD+'/config.js');
 
 var morgan = require('morgan') // http logger
 var logger = require("./logger.js");
+var request = require('superagent');
 
 var nexmo = require('easynexmo');
 nexmo.initialize(config.NEXMO_APP_ID,config.NEXMO_APP_SECRET,'https',false);
@@ -20,6 +21,7 @@ app.use(function (req, res, next) {
     next();
 });
 var router = express.Router();
+app.use('/v1', router);
 router.use(function(req, res, next) {
     res.header("Cache-Control", "no-cache, no-store, must-revalidate");
     res.header("Pragma", "no-cache");
@@ -33,39 +35,115 @@ router.get('/', function(req, res){
 });
 
 
+function create_channel(channel_name, team, callback){
+    var url = "https://slack.com/api/channels.create";
+    var payload={"token": team.plateform_token,
+		 "name":channel_name
+                };
+    request
+        .get(url).query(payload)
+        .end(function(err, result){
+	    logger.debug("create channel:");
+            logger.debug(result.body);
+	    callback(err, result);
+        });
+}
+
+
+function invite_channel(channel_name, user, team, callback){
+    var url = "https://slack.com/api/channels.invite";
+    var payload={"token": team.plateform_token,
+                 "name":channel_name,
+		 "user":user
+                };
+    request
+        .get(url).query(payload)
+        .end(function(err, result){
+            logger.debug("invite channel:");
+            logger.debug(result.body);
+	    if(callback)
+		callback(err, result);
+        });
+}
+
+
+
 // enable per team here : https://github.com/mattermost/platform/blob/master/doc/integrations/webhooks/Outgoing-Webhooks.md
-router.get('/hook/', function(req, res){
-    var recipient = req.body.channel_name.split("|")[0].replace(/ /g,"");
-    var sender    = req.body.channel_name.split("|")[1].replace(/ /g,"");
-    nexmo.sendTextMessage(sender = sender,
-			  recipient = recipient,
-			  message = req.body.text.replace(/\/m[ ]+/,""),
+router.post('/hook', 
+function(req, res){
+    var team = config.TEAM_FROM_NAME[req.body.team_domain || req.query.team_domain];
+    logger.debug("hook received for team"+team.name);
+    if(req.body.token!==team.webhook_outbound_token){
+	//res.send("invalid token");
+	//return;
+    }
+    var payload={"text": req.query.text || req.body.text,
+                 "channel":'#' + (req.query.channel_name || req.body.channel_name),
+                 "username":req.query.user_name || req.body.user_name,
+                }
+    console.log(req.body);
+    console.log(payload);
+    var url = team.webhook_url + team.webhook_key;
+    request
+        .post(url).send(payload)
+        .end(function(err, result){
+            logger.debug(result.body);
+            logger.debug(result.text);
+            logger.debug(err);
+        });
+    var recipient = req.body.channel_name.split("-")[1].replace(/ /g,"").replace('#','');
+    nexmo.sendTextMessage(team.phone,
+			  recipient,
+			  req.body.text.replace(/\/m[ ]+/,""),
 			  null,
 			  function(error, message){
-			      logger.debug(message);
-			      if(err){
-				  res.send({ text: '❌'});				  
+			      logger.debug("from nexmo:");
+			      console.log(message);
+			      if(error || message.messages[0].status !== '0' ){
+				  res.send('❌');
 			      } else {
-				  res.send({ text: '✅' });
+				  res.send('✅');
 			      }
-			  })
+			  }
+)
 });
 
-// incoming sms
+
+
+
+
 router.get('/sms/in', function(req, res){
     res.send("OK");
     logger.debug(req.query)
     var to=req.query.to;
+    var msisdn = req.query.msisdn;
     var team = config.TEAM_FROM_NUMBER[to];
-    var payload={"text": req.query.msisdn,
-		 "channel":from + " | " + team.phone,
-		 "username":from,
+    if(!team){
+	logger.debug(req.body);
+	return;
+    }
+    var channel = "sav" + "-" + msisdn;
+    var payload={"text": req.query.text,
+		 "channel":"#"+channel,
+		 "username":msisdn,
 		 "icon_url":"https://robohash.org/"+msisdn,
                 }
     var url = team.webhook_url + team.webhook_key;
-    request
-        .post(url).send(payload)
-        .end(function(err, result){logger.debug("sent hook :)");});
+    create_channel(channel, team, function(err, result){
+	invite_channel(channel, "louis", team);
+	if(!err){
+	    logger.debug("sending slack message")
+	    logger.debug(url);
+	    logger.debug(payload);
+	    request
+		.post(url).send(payload)
+		.end(function(err, result){
+		    logger.debug(result.body);		    
+		    logger.debug(result.text);		    
+		    logger.debug(err);		    
+		});   
+	}
+    });
 });
 
 app.listen(config.PORT_INTERNAL, function(){
