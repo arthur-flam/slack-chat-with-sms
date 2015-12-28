@@ -22,6 +22,6 @@ module.exports = {
     // network config
     PROTOCOL : "http://",
     HOSTNAME : "YOUR_URL_OR_IP",
-    PORT: 80,           // different if you proxy the requests with, say, nginx
-    PORT_INTERNAL: 8006 // 
+    PORT_SERVER: 8006 // Port this app listens to.
+                      // I proxy the requests with nginx and listen on 8001
 }

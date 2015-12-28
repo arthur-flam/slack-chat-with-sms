@@ -134,6 +134,6 @@ router.get('/sms/in', function(req, res){
     });
 });
 
-app.listen(config.PORT_INTERNAL, function(){
-    logger.debug("App started, listenning on port "+config.PORT_INTERNAL);
+app.listen(config.PORT_SERVER, function(){
+    logger.debug("App started, listenning on port "+config.PORT_SERVER);
 });
