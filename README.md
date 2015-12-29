@@ -33,10 +33,7 @@ First of all type your hostname/ip/protocole in the new `config.js` file.
 	 * Check method is **POST**
 	 * You can copy-paste the command token in the *config.js* file
 	 * Use any custom, name, icon, label, description...
-3. Create an *Incomming Webhook Integration*
-     * Set it to post to *any* channel. All other details do not matter.
-	 * Copy-paste the webhook url in the config file.
-4. [Create an API token](https://api.slack.com/web). This will enable our app to act on your behalf and create / post on channels.
+3. [Create an API token](https://api.slack.com/web). This will enable our app to act on your behalf and create / post on channels.
      * Set it for you team
      * It should look like this `xoxp-ffff-ffffff-ffffff-fffffff`
 

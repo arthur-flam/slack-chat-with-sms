@@ -63,6 +63,19 @@ function invite_channel(channel_name, user, team, callback){
         });
 }
 
+function post_message(payload, callback){
+    var url = "https://slack.com/api/chat.postMessage";
+    request
+        .post(url).send(payload)
+        .end(function(err, result){
+            logger.debug(result.body);
+            logger.debug(result.text);
+            logger.debug(err);
+	    if(callback)
+		callback(err, result);
+        });
+}
+
 
 router.post('/hook', 
 function(req, res){
@@ -72,18 +85,12 @@ function(req, res){
 	//res.send("invalid token"); // enable check ?
 	//return;
     }
-    var payload={"text": req.query.text || req.body.text,
-                 "channel":'#' + (req.query.channel_name || req.body.channel_name),
-                 "username":req.query.user_name || req.body.user_name,
-                }
-    var url = team.webhook_url
-    request
-        .post(url).send(payload)
-        .end(function(err, result){
-            logger.debug(result.body);
-            logger.debug(result.text);
-            logger.debug(err);
-        });
+    var echo_payload={"text": req.query.text || req.body.text,
+                      "channel":'#' + (req.query.channel_name || req.body.channel_name),
+                      "username":req.query.user_name || req.body.user_name,
+		      "token": team.plateform_token
+                     }
+    post_message(echo_payload, function callback(){})
     var recipient = req.body.channel_name.split("-")[1].replace(/ /g,"").replace('#','');
     nexmo.sendTextMessage(team.phone,
 			  recipient,

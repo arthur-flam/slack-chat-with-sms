@@ -1,4 +1,4 @@
-B0;95;c// Example config file
+// Example config file
 
 var TEAM_1={"name":"team1",  // Name of the Slack team (name.slack.com)
 	       "phone":"33644639981",       // Twillio sms-enabled phone number
