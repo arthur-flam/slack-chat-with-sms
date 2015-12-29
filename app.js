@@ -110,7 +110,7 @@ router.get('/sms/in', function(req, res){
 	logger.debug(req.body);
 	return;
     }
-    var channel = "sav" + "-" + msisdn;
+    var channel = "sms-" + msisdn;
     var payload={"text": req.query.text,
 		 "channel":"#"+channel,
 		 "username":msisdn,
