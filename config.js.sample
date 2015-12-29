@@ -1,9 +1,8 @@
-// Example config file
+B0;95;c// Example config file
 
 var TEAM_1={"name":"team1",  // Name of the Slack team (name.slack.com)
 	       "phone":"33644639981",       // Twillio sms-enabled phone number
-	       "webhook_url":"https://hooks.slack.com/services/", // Do not change
-	       "webhook_key":"FFFFFFFFF/FFFFFFFFF/FFFFFFFFFFFFF", //
+	       "webhook_url":"https://hooks.slack.com/services/ffffff/ffffffff/ffffffffffffffffffffff",
 	       "command_token":"", // // From Slack Command setup. Not verification is done at the moment.
 	       "plateform_token":"xoxp-ffffff-ffffff-ffffff-fffffff" // Slack API token given
 	      }

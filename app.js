@@ -76,7 +76,7 @@ function(req, res){
                  "channel":'#' + (req.query.channel_name || req.body.channel_name),
                  "username":req.query.user_name || req.body.user_name,
                 }
-    var url = team.webhook_url + team.webhook_key;
+    var url = team.webhook_url
     request
         .post(url).send(payload)
         .end(function(err, result){

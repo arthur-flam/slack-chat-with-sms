@@ -27,13 +27,16 @@ First of all type your hostname/ip/protocole in the new `config.js` file.
 
 ### Slack integration
 1. Type your team name (like *NAME.slack.com*) in the config file.
-1. [Setup a slash command](https://lookies.slack.com/apps/manage/custom-integrations) as a custom integration. This will let you reply with `/sms` :
+2. [Setup a slash command](https://lookies.slack.com/apps/manage/custom-integrations) as a custom integration. This will let you reply with `/sms` :
      * As URL use `http://YOUR_HOSTNAME/v1/hook`
      * As command name use `/sms` or `reply`. `/s` is already the search command!
 	 * Check method is **POST**
 	 * You can copy-paste the command token in the *config.js* file
 	 * Use any custom, name, icon, label, description...
-2. [Create an API token](https://api.slack.com/web). This will enable our app to act on your behalf and create / post on channels.
+3. Create an *Incomming Webhook Integration*
+     * Set it to post to *any* channel. All other details do not matter.
+	 * Copy-paste the webhook url in the config file.
+4. [Create an API token](https://api.slack.com/web). This will enable our app to act on your behalf and create / post on channels.
      * Set it for you team
      * It should look like this `xoxp-ffff-ffffff-ffffff-fffffff`
 
