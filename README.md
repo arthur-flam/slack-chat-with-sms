@@ -1,6 +1,6 @@
 # Slack-chat-with-SMS
 
-You love [Slack](https://slack.com/) ?
+You love [Slack](https://slack.com/)?
 Now anyone can send you text messages / SMS.
 The conversation starts in its own Slack channel, and you can reply `/sms anything you like`.
 
@@ -42,11 +42,12 @@ npm start
 You should be live.
 
 ## TODO
-- Time to write tests.
-- 1-click Slack integration (see slack apps...) ?
-- Remember if channels exists instead if trying to create them each time.
+- Write tests.
+- Think use 1-click Slack integration button to get the tokens faster.
+- Remember if channels exists with Slack's `channels.list` method instead if trying to create them each time.
 - Features : mute, ask for Nexmo balance...
 
-## Contributors
-- [Arthur Flam](https://twitter.com/ArthurFlam). Slack fan, into data science.
-- Please send me pull requests :)
+## Contributors & Contributing
+- [Arthur Flam](https://twitter.com/ArthurFlam). Slack fan, into data science. Based in TLV.
+
+I will be more than happy to receive pull requests and hear about bugs/issues :)
