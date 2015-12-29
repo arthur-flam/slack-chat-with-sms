@@ -4,6 +4,8 @@ You love [Slack](https://slack.com/)?
 Now anyone can send you text messages / SMS.
 The conversation starts in its own Slack channel, and you can reply `/sms anything you like`.
 
+![Preview](https://raw.github.com/arthur-flam/slack-chat-with-sms/master/screen-capture.png)
+
 ## Setup and configuration
 
 ```bash
