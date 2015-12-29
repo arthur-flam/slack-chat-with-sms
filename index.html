@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Slack-chat-with-sms by arthur-flam</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Slack-chat-with-sms</h1>
+        <h2>Have a conversation on Slack with someone via SMS.</h2>
+        <a href="https://github.com/arthur-flam/slack-chat-with-sms" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="slack-chat-with-sms" class="anchor" href="#slack-chat-with-sms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Slack-chat-with-SMS</h1>
+
+<p>You love <a href="https://slack.com/">Slack</a>?
+Now anyone can send you text messages / SMS.
+The conversation starts in its own Slack channel, and you can reply <code>/sms anything you like</code>.</p>
+
+<p><img src="https://raw.github.com/arthur-flam/slack-chat-with-sms/master/screen-capture.png" alt="Preview"></p>
+
+<h2>
+<a id="setup-and-configuration" class="anchor" href="#setup-and-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup and configuration</h2>
+
+<div class="highlight highlight-source-shell"><pre>git clone git@github.com:arthur-flam/slack-chat-with-sms.git
+cp config.js.sample config.js
+npm install</pre></div>
+
+<p>Before you type <code>npm start</code>, you will need to setup the [Slack] integration and SMS integration...
+Sorry it is a bit long, but consider how amazing it is to chat with anyone via SMS through Slack.</p>
+
+<p>First of all type your hostname/ip/protocole in the new <code>config.js</code> file.</p>
+
+<h3>
+<a id="setting-up-nexmo-inexpensive-and-friendly-sms-provider" class="anchor" href="#setting-up-nexmo-inexpensive-and-friendly-sms-provider" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setting up Nexmo (inexpensive and friendly SMS provider)</h3>
+
+<ol>
+<li>Get a <a href="https://nexmo.com">Nexmo account</a>
+</li>
+<li>Get a sms-enabled phone number and type it in the <em>config.js</em> file.</li>
+<li>Copy-paste the <code>APP_ID</code> or <code>KEY</code> and <code>APP_SECRET</code> available on the <em>API settings</em> on the config file.</li>
+<li>Configure the SMS settings for you number. The Callback URL should be <em>http://YOUR_HOSTNAME/v1/sms/in</em>
+</li>
+</ol>
+
+<h3>
+<a id="slack-integration" class="anchor" href="#slack-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Slack integration</h3>
+
+<ol>
+<li>Type your team name (like <em>NAME.slack.com</em>) in the config file.</li>
+<li>
+<a href="https://lookies.slack.com/apps/manage/custom-integrations">Setup a slash command</a> as a custom integration. This will let you reply with <code>/sms</code> :
+
+<ul>
+<li>As URL use <code>http://YOUR_HOSTNAME/v1/hook</code>
+</li>
+<li>As command name use <code>/sms</code> or <code>reply</code>. <code>/s</code> is already the search command!</li>
+<li>Check method is <strong>POST</strong>
+</li>
+<li>You can copy-paste the command token in the <em>config.js</em> file</li>
+<li>Use any custom, name, icon, label, description...</li>
+</ul>
+</li>
+<li>Create an <em>Incomming Webhook Integration</em>
+
+<ul>
+<li>Set it to post to <em>any</em> channel. All other details do not matter.</li>
+<li>Copy-paste the webhook url in the config file.</li>
+</ul>
+</li>
+<li>
+<a href="https://api.slack.com/web">Create an API token</a>. This will enable our app to act on your behalf and create / post on channels.
+
+<ul>
+<li>Set it for you team</li>
+<li>It should look like this <code>xoxp-ffff-ffffff-ffffff-fffffff</code>
+</li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a id="starting-the-app" class="anchor" href="#starting-the-app" aria-hidden="true"><span class="octicon octicon-link"></span></a>Starting the app</h2>
+
+<div class="highlight highlight-source-shell"><pre>npm start</pre></div>
+
+<p>You should be live.</p>
+
+<h2>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<ul>
+<li>Write tests.</li>
+<li>Think use 1-click Slack integration button to get the tokens faster.</li>
+<li>Remember if channels exists with Slack's <code>channels.list</code> method instead if trying to create them each time.</li>
+<li>Features : mute, ask for Nexmo balance...</li>
+</ul>
+
+<h2>
+<a id="contributors--contributing" class="anchor" href="#contributors--contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributors &amp; Contributing</h2>
+
+<ul>
+<li>
+<a href="https://twitter.com/ArthurFlam">Arthur Flam</a>. Slack fan, into data science. Based in TLV.</li>
+</ul>
+
+<p>I will be more than happy to receive pull requests and hear about bugs/issues :)</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/arthur-flam/slack-chat-with-sms/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/arthur-flam/slack-chat-with-sms/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/arthur-flam/slack-chat-with-sms"></a> is maintained by <a href="https://github.com/arthur-flam">arthur-flam</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
