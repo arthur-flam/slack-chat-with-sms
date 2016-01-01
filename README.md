@@ -10,12 +10,13 @@ The conversation starts in its own Slack channel, and you can reply `/sms anythi
 
 ```bash
 git clone git@github.com:arthur-flam/slack-chat-with-sms.git
+cd slack-chat-with-sms
 cp config.js.sample config.js
 npm install
 ```
 
-Before you type `npm start`, you will need to setup the [Slack] integration and SMS integration...
-Sorry it is a bit long, but consider how amazing it is to chat with anyone via SMS through Slack.
+Before you type `npm start`, you will need to setup the Slack and SMS integrations...
+Sorry it is a bit long, but consider how amazing it is to chat with anyone via SMS through Slack ;)
 
 First of all type your hostname/ip/protocole in the new `config.js` file.
 
