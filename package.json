@@ -2,8 +2,12 @@
   "name": "slack-chat-with-sms",
   "version": "0.1.0",
   "description": "Receive SMS from Slack and start SMS chats with phone users",
-  "keywords": ['slack', 'sms', 'chat'],
-  "homepage": 'github.com/arthur-flam/slack-chat-with-sms',
+  "keywords": ["slack", "sms", "chat"],
+  "homepage": "http://github.com/arthur-flam/slack-chat-with-sms",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arthur-flam/slack-chat-with-sms.git"
+  },
   "bugs": { "url" : "https://github.com/arthur-flam/slack-chat-with-sms/issues",
 	    "email" : "arthur@fl.am"
 	  },
