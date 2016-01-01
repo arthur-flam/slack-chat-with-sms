@@ -15,8 +15,8 @@ module.exports = {
     // team config
     // - this part could be done automatically
     // - if you want to setup more than one team just add them in the dictionnaries
-    TEAM_FROM_NUMBER: {"336xxxxxxxxx":TEAM_1}
-    TEAM_FROM_NAME: {"team1":TEAM_1}
+    TEAM_FROM_NUMBER: {"336xxxxxxxxx":TEAM_1},
+    TEAM_FROM_NAME: {"team1":TEAM_1},
 
     // network config
     PROTOCOL : "http://",
