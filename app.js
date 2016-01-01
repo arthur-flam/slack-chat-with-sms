@@ -1,9 +1,9 @@
 "use strict";
+var config = require('./config.js');
 var morgan = require('morgan') // http logger
 var request = require('superagent');
 var nexmo = require('easynexmo');
-nexmo.initialize(config.NEXMO_APP_ID,config.NEXMO_APP_SECRET,'https',false);
-var config = require('./config.js');
+nexmo.initialize(config.NEXMO_APP_ID, config.NEXMO_APP_SECRET,'https',false);
 var logger = require("./logger.js");
 
 var express     =   require('express');
